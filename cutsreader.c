@@ -57,10 +57,11 @@ int read_file (char *argv, unsigned char *barray) {
   int i = 0;
   FILE *fp;
 
+//    printf("->%s<-",argv);
   fp = fopen (argv, "rb");
   if (!fp)
     {
-      printf ("read error\n");	//, fp);
+      printf ("read error\n");
       return -1;
     }
 
@@ -120,7 +121,7 @@ int main (int argc, char *argv[]) {
       j = j + 12;
   }
 
-  printf ("\nPress ENTER");
-  scanf ("%c", &i);
+//  printf ("\nPress ENTER");
+//  scanf ("%c", &i);
   return 0;
 }
