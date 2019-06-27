@@ -5,23 +5,6 @@
 
 #define VERSION "0.2b"
 
-// Helperfunction for debuging purpose
-void
-hexdump (const char *const filename) {
-  FILE *file;
-  unsigned char byte;
-
-  file = fopen (filename, "rb");
-  if (file == NULL)
-    return;
-
-  while (fread (&byte, 1, 1, file) == 1)
-    fprintf (stdout, "0x%02x ", byte);
-  fprintf (stdout, "\n");
-
-  return;
-}
-
 // get time from pts
 void show_ts (double f) {
   time_t ts = f / 90000;
@@ -57,7 +40,6 @@ int read_file (char *argv, unsigned char *barray) {
   int i = 0;
   FILE *fp;
 
-//    printf("->%s<-",argv);
   fp = fopen (argv, "rb");
   if (!fp)
     {
@@ -67,7 +49,6 @@ int read_file (char *argv, unsigned char *barray) {
 
   while (fread (&barray[i++], 1, 1, fp) == 1)
     {
-//  fprintf(stdout, "0x%02x \n", barray[i-1]);
     if (i == 119) 
       {
         printf ("error in file\n");
@@ -121,7 +102,5 @@ int main (int argc, char *argv[]) {
       j = j + 12;
   }
 
-//  printf ("\nPress ENTER");
-//  scanf ("%c", &i);
   return 0;
 }
