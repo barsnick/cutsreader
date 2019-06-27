@@ -16,3 +16,6 @@ On Windows just associate .cuts file type to cutsreader. After that just doublec
 ## Tested on
 - Linux 64Bit 
 - Windows7/Windows10 64Bit
+
+## Screenshot 
+![alt tag](./screenshot.jpg)
