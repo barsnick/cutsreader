@@ -22,5 +22,5 @@ On Windows just associate .cuts file type to cutsreader. After that just doublec
 
 ## Included binary files
 * cutsreader.exe (Windows x64)
-* cutsreader.miplel (MIPSel3)
+* cutsreader.miplel (MIPSel32)
 * cutsreader.x64 (Linux x64)
