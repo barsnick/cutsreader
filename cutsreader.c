@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <inttypes.h>
 #include <time.h>
@@ -48,14 +49,14 @@ int main (int argc, char *argv[]) {
     {
       printf ("cutsreader Version %s\n", VERSION);
       printf ("Usage: %s <filename>\n", argv[0]);
-      return -1;
+      return EXIT_FAILURE;
     }
 
   fp = fopen (argv[1], "rb");
   if (!fp)
     {
       printf ("read error\n");
-      return -1;
+      return EXIT_FAILURE;
     }
 
   fseek(fp, 0, SEEK_END);
@@ -65,7 +66,7 @@ int main (int argc, char *argv[]) {
   {
         printf ("ERROR: wrong file format\n");
         fclose (fp);
-        return -1;
+        return EXIT_FAILURE;
   }
 
   while (fread (&barray[0], 12, 1, fp) == 1)
@@ -90,5 +91,5 @@ int main (int argc, char *argv[]) {
 
   fclose (fp);
 
-  return 0;
+  return EXIT_SUCCESS;
 }
