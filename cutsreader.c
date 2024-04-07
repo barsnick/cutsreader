@@ -87,7 +87,7 @@ int main (int argc, char *argv[]) {
       show_ts ((float) pts);
       get_ptstype (type, txt);
       printf ("\tType: %s (%i)\n", txt, type);
-  }
+    }
 
   fclose (fp);
 
