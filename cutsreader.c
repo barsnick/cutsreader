@@ -43,7 +43,7 @@ int main (int argc, char *argv[]) {
   uint32_t type;
   char txt[20] = { "0" };
   FILE *fp;
-  int f_size;
+  off_t f_size;
 
   if (argc < 2)
     {
@@ -66,15 +66,21 @@ int main (int argc, char *argv[]) {
       return EXIT_FAILURE;
     }
 
-  fseek(fp, 0, SEEK_END);
-  f_size = ftell(fp);
+  fseeko(fp, 0, SEEK_END);
+  f_size = ftello(fp);
   rewind(fp);
+  if (f_size > (1 << 12))
+    {
+      fprintf (stderr, "ERROR: unreasonably large file, size %jd\n", (intmax_t)f_size);
+      fclose (fp);
+      return EXIT_FAILURE;
+    }
   if (f_size%12)
-  {
-        printf ("ERROR: wrong file format\n");
-        fclose (fp);
-        return EXIT_FAILURE;
-  }
+    {
+      fprintf (stderr, "ERROR: wrong file format - size not divisible by 12\n");
+      fclose (fp);
+      return EXIT_FAILURE;
+    }
 
   while (fread (&barray[0], 12, 1, fp) == 1)
     {
