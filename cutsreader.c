@@ -1,3 +1,4 @@
+#include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -54,7 +55,14 @@ int main (int argc, char *argv[]) {
   fp = fopen (argv[1], "rb");
   if (!fp)
     {
-      printf ("read error\n");
+      if (errno)
+        {
+          perror("error opening file");
+        }
+      else
+        {
+          fprintf (stderr, "read error\n");
+        }
       return EXIT_FAILURE;
     }
 
