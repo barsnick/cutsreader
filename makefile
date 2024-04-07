@@ -1,8 +1,17 @@
 PROG = cutsreader
+SRCS = cutsreader.c
+OBJS = $(SRCS:.c=.o)
+
+CC = gcc
+CFLAGS = -O2 -Wall -Wextra
 
 all: $(PROG)
-%: %.c
-	gcc cutsreader.c -o cutsreader
+
+$(PROG): $(OBJS)
+	$(CC) $(OBJS) -o $(PROG)
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm $(PROG)
+	rm -f $(OBJS) $(PROG)
