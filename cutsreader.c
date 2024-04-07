@@ -37,7 +37,6 @@ void get_ptstype (int i, char *txt) {
 }
 
 int main (int argc, char *argv[]) {
-  int i = 0;
   unsigned char barray[12];
   uint64_t pts;
   uint32_t type;
