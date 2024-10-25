@@ -26,11 +26,15 @@
 #endif
 
 // get time from pts
+const int MPEGTS_TICKS_PER_SECOND = 90000;
+const int MPEGTS_TICKS_PER_MILLISECOND = 90;
+
 void show_ts (uint64_t f) {
-  time_t ts = f / 90000;
+  time_t ts = f / MPEGTS_TICKS_PER_SECOND;
+  int millis = (f - MPEGTS_TICKS_PER_SECOND * ts) / MPEGTS_TICKS_PER_MILLISECOND;
   struct tm *tmp = gmtime (&ts);
 
-  printf ("%02i:%02i:%02i", tmp->tm_hour, tmp->tm_min, tmp->tm_sec);
+  printf ("%02i:%02i:%02i.%03i", tmp->tm_hour, tmp->tm_min, tmp->tm_sec, millis);
 }
 
 // resolve pts type
