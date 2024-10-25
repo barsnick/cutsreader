@@ -7,6 +7,24 @@
 
 #define VERSION "0.3b"
 
+#if __BIG_ENDIAN__
+# define htonll(x) (x)
+# define ntohll(x) (x)
+#else
+# define htonll(x) \
+          ( \
+          ((x) >> 56) | \
+          (((x) << 40) & 0x00FF000000000000) | \
+          (((x) << 24) & 0x0000FF0000000000) | \
+          (((x) << 8) & 0x000000FF00000000) | \
+          (((x) >> 8) & 0x00000000FF000000) | \
+          (((x) >> 24) & 0x0000000000FF0000) | \
+          (((x) >> 40) & 0x000000000000FF00) | \
+          ((x) << 56) \
+          )
+# define ntohll(x) htonll(x)
+#endif
+
 // get time from pts
 void show_ts (double f) {
   time_t ts = f / 90000;
@@ -84,14 +102,9 @@ int main (int argc, char *argv[]) {
 
   while (fread (&barray[0], 12, 1, fp) == 1)
     {
-      pts = ((uint64_t) barray[0] << 56) |	// cast to get rid of gcc warning
-	    ((uint64_t) barray[1] << 48) |
-	    ((uint64_t) barray[2] << 40) |
-    	    ((uint64_t) barray[3] << 32) |
-    	    (barray[4] << 24) |
-    	    (barray[5] << 16) | 
-	    (barray[6] << 8) | 
-	    barray[7];
+      uint64_t pts_bytes;
+      memcpy((uint8_t *)&pts_bytes, barray, sizeof(pts));
+      const uint64_t pts = ntohll(pts_bytes);
       type = (barray[8] << 24) |
 	      (barray[9] << 16) | (barray[10] << 8) | barray[11];
 
