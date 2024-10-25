@@ -26,7 +26,7 @@
 #endif
 
 // get time from pts
-void show_ts (double f) {
+void show_ts (uint64_t f) {
   time_t ts = f / 90000;
   struct tm *tmp = gmtime (&ts);
 
@@ -110,7 +110,7 @@ int main (int argc, char *argv[]) {
 
       // result
       printf ("PTS: ");
-      show_ts ((float) pts);
+      show_ts (pts);
       get_ptstype (type, txt);
       printf ("\tType: %s (%i)\n", txt, type);
     }
